@@ -28,8 +28,7 @@ class CreateBoardsTable extends Migration
      */
     public function down()
     {
-        Schema::table('boards', function (Blueprint $table) {
-            //
-        });
+        
+        Schema::dropIfExists('boards');
     }
 }

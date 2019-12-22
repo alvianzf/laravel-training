@@ -15,11 +15,10 @@ class CreateBoardListsTable extends Migration
     {
         Schema::create('board_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('board_id');
+            $table->bigInteger('board_id')->unsigned();
             $table->integer('order');
             $table->string('name');
             $table->timestamps();
-
         });
     }
 
