@@ -79,6 +79,19 @@ class BoardsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $boards = Boards::find($id);
+
+
+        if (!$boards){
+            return response(['message' => 'id tidak dikenali!'], 500);
+        } else {
+            $boards->creator_id = $request->creator_id;
+            $boards->name = $request->name;
+    
+            $boards->save();
+    
+            return response(['success' => true, 'result' => $boards, 'message' => 'Board berhasil diubah', 'error' => null]);
+        }
     }
 
     /**
@@ -90,5 +103,12 @@ class BoardsController extends Controller
     public function destroy($id)
     {
         //
+        $boards = Boards::find($id);
+
+        if ($boards->delete()) {
+            return response($id, 200);
+        }
+
+        return response($id, 500);
     }
 }
