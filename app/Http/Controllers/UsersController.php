@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Boards;
+use App\User;
 
-class BoardsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class BoardsController extends Controller
     public function index()
     {
         //
-        $data = Boards::all();
+        $data = User::all();
 
-        return response(['success' => true, 'result' => $data, 'error' => null], 200);
+        return response($data, 200);
     }
 
     /**
@@ -25,9 +25,17 @@ class BoardsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        //
+        $user = new User;
 
+        $user = $request;
+
+        if ($user->save())
+            return response($user, 200);
+        
+            return response($user, 500);
     }
 
     /**
@@ -38,13 +46,7 @@ class BoardsController extends Controller
      */
     public function store(Request $request)
     {
-
         //
-        if (Boards::create(['creator_id' => $request->creator_id, 'name' => $request->name])){
-            return response(['success' => true, 'result' => $request], 200);
-        }
-
-        return response(['success' => false, 'result' => $request], 500);
     }
 
     /**
